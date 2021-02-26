@@ -19,11 +19,14 @@ from rabbitmq import Publisher
 
 # Honeycomb
 import beeline
-from beeline.middleware.flask import HoneyMiddleware
+from uwsgidecorators  import postfork
 
 # If you use uSWGI, Gunicorn, Celery, or other pre-fork models, do not initialize the Beeline here.
 # See the section below on pre-fork models.
-beeline.init(writekey='f9e0f7c58be2dde4c878162daed00123', dataset="payment", service_name="payment", debug=True)
+@postfork
+def init_beeline():
+    logging.info(f'beeline initialization in process pid {os.getpid()}')
+    beeline.init(writekey="f9e0f7c58be2dde4c878162daed00123", dataset="payment", service_name="payment", debug=True)
 
 # Pass your Flask app to HoneyMiddleware
 app = Flask(__name__)
