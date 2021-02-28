@@ -10,7 +10,7 @@ services:
   payment:
     build:
       context: ../payment
-    image: steveww/rs-payment
+    image: slombardo2/rs-payment
     depends_on:
       - rabbitmq
     ports:
@@ -20,7 +20,7 @@ services:
   dispatch:
     build:
       context: .
-    image: steveww/rs-dispatch
+    image: slombardo2/rs-dispatch
     depends_on:
       - rabbitmq
     networks:
