@@ -19,7 +19,8 @@ from rabbitmq import Publisher
 
 # Honeycomb
 import beeline
-from uwsgidecorators  import postfork
+from beeline.middleware.flask import HoneyMiddleware
+from uwsgidecorators import postfork
 
 # If you use uSWGI, Gunicorn, Celery, or other pre-fork models, do not initialize the Beeline here.
 # See the section below on pre-fork models.
@@ -33,6 +34,7 @@ import prometheus_client
 from prometheus_client import Counter, Histogram
 
 app = Flask(__name__)
+HoneyMiddleware(app, db_events=False) # db_events defaults to True, set to False if not using our db middleware with Flask-SQLAlchemy
 app.logger.setLevel(logging.INFO)
 
 CART = os.getenv('CART_HOST', 'cart')
