@@ -1,4 +1,4 @@
-module https://github.com/slombardo2/robot-shop/dispatch
+module github.com/slombardo2/robot-shop/dispatch
 
 go 1.14
 
